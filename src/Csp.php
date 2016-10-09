@@ -18,7 +18,7 @@ class Csp implements MiddlewareInterface
     /**
      * Set CSPBuilder.
      *
-     * @param CSPBuilder $policies
+     * @param CSPBuilder|null $builder
      */
     public function __construct(CSPBuilder $builder = null)
     {
