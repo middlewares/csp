@@ -4,7 +4,6 @@ namespace Middlewares\Tests;
 
 use Middlewares\Csp;
 use Middlewares\Utils\Dispatcher;
-use Middlewares\Utils\Factory;
 use ParagonIE\CSPBuilder\CSPBuilder;
 
 class CspTest extends \PHPUnit_Framework_TestCase
