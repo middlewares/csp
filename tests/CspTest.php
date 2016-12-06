@@ -4,9 +4,7 @@ namespace Middlewares\Tests;
 
 use Middlewares\Csp;
 use Middlewares\Utils\Dispatcher;
-use Middlewares\Utils\CallableMiddleware;
-use Zend\Diactoros\ServerRequest;
-use Zend\Diactoros\Response;
+use Middlewares\Utils\Factory;
 use ParagonIE\CSPBuilder\CSPBuilder;
 
 class CspTest extends \PHPUnit_Framework_TestCase
@@ -33,13 +31,11 @@ class CspTest extends \PHPUnit_Framework_TestCase
      */
     public function testCsp($cspBuilder, $expected)
     {
+        $request = Factory::createServerRequest();
+
         $response = (new Dispatcher([
             new Csp($cspBuilder),
-
-            new CallableMiddleware(function () {
-                return new Response();
-            }),
-        ]))->dispatch(new ServerRequest());
+        ]))->dispatch($request);
 
         $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
         $this->assertEquals($expected, $response->getHeaderLine('Content-Security-Policy'));
