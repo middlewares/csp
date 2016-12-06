@@ -31,11 +31,9 @@ class CspTest extends \PHPUnit_Framework_TestCase
      */
     public function testCsp($cspBuilder, $expected)
     {
-        $request = Factory::createServerRequest();
-
-        $response = (new Dispatcher([
+        $response = Dispatcher::run([
             new Csp($cspBuilder),
-        ]))->dispatch($request);
+        ]);
 
         $this->assertInstanceOf('Psr\\Http\\Message\\ResponseInterface', $response);
         $this->assertEquals($expected, $response->getHeaderLine('Content-Security-Policy'));
