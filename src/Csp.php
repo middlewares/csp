@@ -4,11 +4,11 @@ namespace Middlewares;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Interop\Http\Middleware\ServerMiddlewareInterface;
-use Interop\Http\Middleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Interop\Http\ServerMiddleware\DelegateInterface;
 use ParagonIE\CSPBuilder\CSPBuilder;
 
-class Csp implements ServerMiddlewareInterface
+class Csp implements MiddlewareInterface
 {
     /**
      * @var CSPBuilder
