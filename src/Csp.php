@@ -18,6 +18,16 @@ class Csp implements MiddlewareInterface
     private $builder;
 
     /**
+     * @var string|null
+     */
+    private $reportPath = null;
+
+    /**
+     * @var LoggerInterface|null
+     */
+    private $reportLogger = null;
+
+    /**
      * Set CSPBuilder.
      *
      * @param CSPBuilder|null $builder
