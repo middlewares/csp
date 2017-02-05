@@ -7,7 +7,7 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![SensioLabs Insight][ico-sensiolabs]][link-sensiolabs]
 
-Middleware to add the [Content-Security-Policy](https://content-security-policy.com/) header to the response using [paragonie/csp-builder](https://github.com/paragonie/csp-builder) library.
+Middleware to add the [Content-Security-Policy](https://content-security-policy.com/) header to the response using [paragonie/csp-builder](https://github.com/paragonie/csp-builder) library. It can also handle the CSP error reports using a [Psr log implementation](https://packagist.org/providers/psr/log-implementation).
 
 ## Requirements
 
@@ -40,6 +40,10 @@ $response = $dispatcher->dispatch(new ServerRequest());
 #### `__construct(ParagonIE\CSPBuilder\CSPBuilder $builder = null)`
 
 Set the CSP header builder. See [paragonie/csp-builder](https://github.com/paragonie/csp-builder) for more info. If it's not provided, create a generic one with restrictive directives.
+
+#### `public function report(string $path, Psr\Log\LoggerInterface $log)`
+
+Configure the `report-uri` and the logger used to store the CSP reports send by the browser.
 
 ---
 
