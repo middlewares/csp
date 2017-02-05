@@ -28,8 +28,10 @@ composer require middlewares/csp
 ```php
 use ParagonIE\CSPBuilder\CSPBuilder;
 
+$csp = CSPBuilder::fromFile('/path/to/source.json');
+
 $dispatcher = new Dispatcher([
-	new Middlewares\Csp(CSPBuilder::fromFile('/path/to/source.json'))
+	new Middlewares\Csp($csp)
 ]);
 
 $response = $dispatcher->dispatch(new ServerRequest());
@@ -41,9 +43,28 @@ $response = $dispatcher->dispatch(new ServerRequest());
 
 Set the CSP header builder. See [paragonie/csp-builder](https://github.com/paragonie/csp-builder) for more info. If it's not provided, create a generic one with restrictive directives.
 
-#### `public function report(string $path, Psr\Log\LoggerInterface $log)`
+#### `report(string $path, Psr\Log\LoggerInterface $log)`
 
-Configure the `report-uri` and the logger used to store the CSP reports send by the browser.
+Configure the `report-uri` and the logger used to store the CSP reports send by the browser. Example:
+
+```php
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use ParagonIE\CSPBuilder\CSPBuilder;
+
+//Create the logger
+$logger = new Logger('csp');
+$logger->pushHandler(new StreamHandler(fopen('/csp-reports.txt', 'r+')));
+
+//Create the csp config
+$csp = CSPBuilder::fromFile('/path/to/source.json');
+
+$dispatcher = new Dispatcher([
+    (new Middlewares\Csp($csp))->report('/csp-report', $logger)
+]);
+
+$response = $dispatcher->dispatch(new ServerRequest());
+```
 
 ---
 
