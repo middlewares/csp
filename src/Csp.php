@@ -70,7 +70,7 @@ class Csp implements MiddlewareInterface
 
         $response = $delegate->process($request);
         $this->builder->compile();
-        return $this->builder->injectCSPHeader($response);
+        return $this->builder->injectCSPHeader($response, true);
     }
 
     /**

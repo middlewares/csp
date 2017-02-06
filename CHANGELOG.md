@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4.1 - 2017-02-06
+
+### Added
+
+* Insert the legacy headers `X-Webkit-CSP` and `X-Content-Security-Policy`.
+
 ## 0.4.0 - 2017-02-05
 
 * Added the option `report`, to handle CSP errors using `psr/log`.

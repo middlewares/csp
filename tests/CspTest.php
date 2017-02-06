@@ -21,10 +21,10 @@ class CspTest extends \PHPUnit_Framework_TestCase
                 "frame-ancestors 'self'; object-src 'self'; script-src 'self'; ",
             ],
             [
-                (new CSPBuilder([
+                new CSPBuilder([
                     'default-src' => ['self' => true],
                     'report-uri' => '/csp_violation_reporting_endpoint',
-                ]))->enableOldBrowserSupport(),
+                ]),
                 "default-src 'self'; report-uri /csp_violation_reporting_endpoint; ",
             ],
         ];
@@ -41,6 +41,8 @@ class CspTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals($expected, $response->getHeaderLine('Content-Security-Policy'));
+        $this->assertEquals($expected, $response->getHeaderLine('X-Content-Security-Policy'));
+        $this->assertEquals($expected, $response->getHeaderLine('X-Webkit-CSP'));
     }
 
     public function reportProvider()
