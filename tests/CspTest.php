@@ -2,6 +2,7 @@
 
 namespace Middlewares\Tests;
 
+use PHPUnit\Framework\TestCase;
 use Middlewares\Csp;
 use Middlewares\Utils\Dispatcher;
 use Middlewares\Utils\Factory;
@@ -11,7 +12,7 @@ use Psr\Http\Message\ResponseInterface;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-class CspTest extends \PHPUnit_Framework_TestCase
+class CspTest extends TestCase
 {
     public function cspProvider()
     {
