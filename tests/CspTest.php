@@ -2,15 +2,15 @@
 
 namespace Middlewares\Tests;
 
-use PHPUnit\Framework\TestCase;
 use Middlewares\Csp;
 use Middlewares\Utils\Dispatcher;
 use Middlewares\Utils\Factory;
-use ParagonIE\CSPBuilder\CSPBuilder;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use ParagonIE\CSPBuilder\CSPBuilder;
+use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class CspTest extends TestCase
 {
@@ -33,6 +33,8 @@ class CspTest extends TestCase
 
     /**
      * @dataProvider cspProvider
+     * @param mixed $cspBuilder
+     * @param mixed $expected
      */
     public function testCsp($cspBuilder, $expected)
     {
@@ -51,11 +53,11 @@ class CspTest extends TestCase
         return [
             [
                 Factory::createServerRequest([], 'GET', '/'),
-                false
+                false,
             ],
             [
                 Factory::createServerRequest([], 'POST', '/csp-report'),
-                false
+                false,
             ],
             [
                 Factory::createServerRequest([], 'POST', '/csp-report')
@@ -64,15 +66,16 @@ class CspTest extends TestCase
                             'blocked-uri' => 'https://other-domain.com/script.js',
                             'document-uri' => 'https://example.com',
                             'effective-directive' => 'script-src',
-                        ]
+                        ],
                     ]),
-                true
-            ]
+                true,
+            ],
         ];
     }
 
     /**
      * @dataProvider reportProvider
+     * @param mixed $reported
      */
     public function testReports(ServerRequestInterface $request, $reported)
     {
@@ -81,10 +84,10 @@ class CspTest extends TestCase
         $logger->pushHandler(new StreamHandler($logs));
 
         $response = Dispatcher::run([
-            (new Csp)->report('/csp-report', $logger),
+            (new Csp())->report('/csp-report', $logger),
             function () {
                 return 'No CSP report';
-            }
+            },
         ], $request);
 
         rewind($logs);
