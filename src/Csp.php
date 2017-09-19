@@ -2,8 +2,8 @@
 
 namespace Middlewares;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Interop\Http\Server\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
 use Middlewares\Utils\Factory;
 use ParagonIE\CSPBuilder\CSPBuilder;
 use Psr\Http\Message\ResponseInterface;
@@ -57,18 +57,18 @@ class Csp implements MiddlewareInterface
     /**
      * Process a request and return a response.
      *
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
+     * @param ServerRequestInterface  $request
+     * @param RequestHandlerInterface $handler
      *
      * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler)
     {
         if ($this->logReport($request)) {
             return Factory::createResponse();
         }
 
-        $response = $delegate->process($request);
+        $response = $handler->handle($request);
         $this->builder->compile();
         return $this->builder->injectCSPHeader($response, true);
     }
