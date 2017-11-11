@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares;
 
@@ -29,8 +30,6 @@ class Csp implements MiddlewareInterface
 
     /**
      * Set CSPBuilder.
-     *
-     * @param CSPBuilder|null $builder
      */
     public function __construct(CSPBuilder $builder = null)
     {
@@ -39,16 +38,11 @@ class Csp implements MiddlewareInterface
 
     /**
      * Configure the report-uri directive
-     *
-     * @param string          $path   Path of the report-uri
-     * @param LoggerInterface $logger The logger interface used to log the errors
-     *
-     * @return self
      */
-    public function report($path, LoggerInterface $logger)
+    public function report(string $path, LoggerInterface $logger): self
     {
+        $this->builder->setReportUri($path);
         $this->reportPath = $path;
-        $this->builder->addDirective('report-uri', $path);
         $this->reportLogger = $logger;
 
         return $this;
@@ -56,13 +50,8 @@ class Csp implements MiddlewareInterface
 
     /**
      * Process a request and return a response.
-     *
-     * @param ServerRequestInterface  $request
-     * @param RequestHandlerInterface $handler
-     *
-     * @return ResponseInterface
      */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if ($this->logReport($request)) {
             return Factory::createResponse();
@@ -75,10 +64,8 @@ class Csp implements MiddlewareInterface
 
     /**
      * Create a default csp builder.
-     *
-     * @return CSPBuilder
      */
-    private static function createBuilder()
+    private static function createBuilder(): CSPBuilder
     {
         return new CSPBuilder([
             'script-src' => ['self' => true],
@@ -90,12 +77,8 @@ class Csp implements MiddlewareInterface
     /**
      * Handle the csp-report
      * Returns true if the request is a report, false otherwise
-     *
-     * @param ServerRequestInterface $request
-     *
-     * @return bool
      */
-    private function logReport(ServerRequestInterface $request)
+    private function logReport(ServerRequestInterface $request): bool
     {
         if ($request->getMethod() !== 'POST') {
             return false;

@@ -26,7 +26,7 @@ class CspTest extends TestCase
                     'default-src' => ['self' => true],
                     'report-uri' => '/csp_violation_reporting_endpoint',
                 ]),
-                "default-src 'self'; report-uri /csp_violation_reporting_endpoint; ",
+                "default-src 'self'; report-uri /csp_violation_reporting_endpoint; report-to /csp_violation_reporting_endpoint; ",
             ],
         ];
     }
