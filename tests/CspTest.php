@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace Middlewares\Tests;
 
@@ -34,10 +35,8 @@ class CspTest extends TestCase
 
     /**
      * @dataProvider cspProvider
-     * @param mixed $cspBuilder
-     * @param mixed $expected
      */
-    public function testCsp($cspBuilder, $expected)
+    public function testCsp(CSPBuilder $cspBuilder = null, string $expected)
     {
         $response = Dispatcher::run([
             new Csp($cspBuilder),
@@ -61,6 +60,10 @@ class CspTest extends TestCase
                 false,
             ],
             [
+                Factory::createServerRequest([], 'POST', '/'),
+                false,
+            ],
+            [
                 Factory::createServerRequest([], 'POST', '/csp-report')
                     ->withParsedBody([
                         'csp-report' => [
@@ -76,9 +79,8 @@ class CspTest extends TestCase
 
     /**
      * @dataProvider reportProvider
-     * @param mixed $reported
      */
-    public function testReports(ServerRequestInterface $request, $reported)
+    public function testReports(ServerRequestInterface $request, bool $reported)
     {
         $logs = fopen('php://temp', 'r+');
         $logger = new Logger('test');
