@@ -18,9 +18,9 @@
     },
     "require": {
         "php": "^7.0",
-        "middlewares/utils": "~0.13",
+        "middlewares/utils": "^1.0",
         "paragonie/csp-builder": "^2.2",
-        "http-interop/http-server-middleware": "^1.0"
+        "psr/http-server-middleware": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0",
