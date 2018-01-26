@@ -30,12 +30,12 @@ class Csp implements MiddlewareInterface
 
     public static function createFromFile(string $path): self
     {
-        return new static(CSPBuilder::fromFile($data));
+        return new static(CSPBuilder::fromFile($path));
     }
 
     public static function createFromData(array $data): self
     {
-        return new static(CSPBuilder::fromData($data));
+        return new static(new CSPBuilder($data));
     }
 
     /**

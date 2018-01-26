@@ -1,0 +1,4 @@
+{
+  "default-src": {"self": true},
+  "report-uri": "/csp_violation_reporting_endpoint"
+}

@@ -8,7 +8,6 @@ use Middlewares\Utils\Dispatcher;
 use Middlewares\Utils\Factory;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use ParagonIE\CSPBuilder\CSPBuilder;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -19,14 +18,19 @@ class CspTest extends TestCase
     {
         return [
             [
-                null,
+                new Csp(),
                 "frame-ancestors 'self'; object-src 'self'; script-src 'self'; ",
             ],
             [
-                new CSPBuilder([
+                Csp::createFromData([
                     'default-src' => ['self' => true],
                     'report-uri' => '/csp_violation_reporting_endpoint',
                 ]),
+                "default-src 'self'; report-uri /csp_violation_reporting_endpoint; "
+                .'report-to /csp_violation_reporting_endpoint; ',
+            ],
+            [
+                Csp::createFromFile(__DIR__.'/config.json'),
                 "default-src 'self'; report-uri /csp_violation_reporting_endpoint; "
                 .'report-to /csp_violation_reporting_endpoint; ',
             ],
@@ -36,11 +40,9 @@ class CspTest extends TestCase
     /**
      * @dataProvider cspProvider
      */
-    public function testCsp(CSPBuilder $cspBuilder = null, string $expected)
+    public function testCsp(Csp $csp, string $expected)
     {
-        $response = Dispatcher::run([
-            new Csp($cspBuilder),
-        ]);
+        $response = Dispatcher::run([$csp]);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals($expected, $response->getHeaderLine('Content-Security-Policy'));
