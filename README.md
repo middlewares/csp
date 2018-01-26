@@ -66,6 +66,32 @@ $dispatcher = new Dispatcher([
 $response = $dispatcher->dispatch(new ServerRequest());
 ```
 
+## Helpers
+
+#### `createFromFile(string $path)`
+
+Shortcut to create instances using a json file:
+
+```php
+$dispatcher = new Dispatcher([
+    Middlewares\Csp::createFromFile(__DIR__.'/csp-config.json')
+]);
+```
+
+#### `createFromData(array $data)`
+
+Shortcut to create instances using an array with data:
+
+```php
+$dispatcher = new Dispatcher([
+    Middlewares\Csp::createFromData([
+        'script-src' => ['self' => true],
+        'object-src' => ['self' => true],
+        'frame-ancestors' => ['self' => true],
+    ])
+]);
+```
+
 ---
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes and [CONTRIBUTING](CONTRIBUTING.md) for contributing details.

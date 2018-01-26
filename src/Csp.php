@@ -14,7 +14,7 @@ use Psr\Log\LoggerInterface;
 class Csp implements MiddlewareInterface
 {
     /**
-     * @var CSPBuilder
+     * @var CSPBuilder|null
      */
     private $builder;
 
@@ -27,6 +27,16 @@ class Csp implements MiddlewareInterface
      * @var LoggerInterface|null
      */
     private $reportLogger = null;
+
+    public static function createFromFile(string $path): self
+    {
+        return new static(CSPBuilder::fromFile($data));
+    }
+
+    public static function createFromData(array $data): self
+    {
+        return new static(CSPBuilder::fromData($data));
+    }
 
     /**
      * Set CSPBuilder.
@@ -58,7 +68,9 @@ class Csp implements MiddlewareInterface
         }
 
         $response = $handler->handle($request);
+
         $this->builder->compile();
+
         return $this->builder->injectCSPHeader($response, true);
     }
 
