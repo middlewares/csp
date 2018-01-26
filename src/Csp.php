@@ -100,7 +100,7 @@ class Csp implements MiddlewareInterface
             return false;
         }
 
-        $data = $request->getParsedBody();
+        $data = (array) $request->getParsedBody();
 
         if (!isset($data['csp-report'])) {
             return false;
