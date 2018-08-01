@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) 
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0] - UNRELEASED
+
+### Changed
+
+- Moved `middlewares/utils` to dev dependencies
+- Upgraded dev dependencies
+
+### Removed
+
+- Dropped `report` option. Use [middlewares/reporting-logger](https://github.com/middlewares/reporting-logger) instead.
+
 ## [1.0.1] - 2018-01-27
 
 ### Fixed
@@ -77,6 +88,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 First version
 
+
+[2.0.0]: https://github.com/middlewares/csp/compare/v1.0.1...HEAD
 [1.0.1]: https://github.com/middlewares/csp/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/middlewares/csp/compare/v0.6.0...v1.0.0
 [0.6.0]: https://github.com/middlewares/csp/compare/v0.5.0...v0.6.0
