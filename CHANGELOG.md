@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.0.0] - UNRELEASED
 
+### Added
+
+- PSR-17 support
+
 ### Changed
 
 - Moved `middlewares/utils` to dev dependencies
-- Upgraded dev dependencies
 
 ### Removed
 
