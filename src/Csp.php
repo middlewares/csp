@@ -12,7 +12,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 class Csp implements MiddlewareInterface
 {
     /**
-     * @var CSPBuilder|null
+     * @var CSPBuilder
      */
     private $builder;
 
