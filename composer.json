@@ -22,6 +22,7 @@
         "psr/http-server-middleware": "^1.0"
     },
     "require-dev": {
+        "middlewares/utils": "^3.0",
         "phpunit/phpunit": "^8.1",
         "zendframework/zend-diactoros": "^2.2",
         "friendsofphp/php-cs-fixer": "^2.0",
