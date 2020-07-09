@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.1.0] - 2020-07-09
+### Added
+- `legacy()` option
+
 ## [3.0.0] - 2019-12-01
 ### Removed
 - Support for PHP 7.0 and 7.1
@@ -74,6 +78,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.1.0 - 2016-10-09
 First version
 
+[3.1.0]: https://github.com/middlewares/csp/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/middlewares/csp/compare/v2.0.0...v3.0.0
 [2.0.0]: https://github.com/middlewares/csp/compare/v1.0.1...v2.0.0
 [1.0.1]: https://github.com/middlewares/csp/compare/v1.0.0...v1.0.1

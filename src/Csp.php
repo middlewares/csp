@@ -15,6 +15,7 @@ class Csp implements MiddlewareInterface
      * @var CSPBuilder
      */
     private $builder;
+    private $legacy = true;
 
     public static function createFromFile(string $path): self
     {
@@ -35,6 +36,16 @@ class Csp implements MiddlewareInterface
     }
 
     /**
+     * Set if include legacy headers for old browsers
+     */
+    public function legacy($legacy = true): self
+    {
+        $this->legacy = $legacy;
+
+        return $this;
+    }
+
+    /**
      * Process a request and return a response.
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -43,7 +54,7 @@ class Csp implements MiddlewareInterface
 
         $this->builder->compile();
 
-        return $this->builder->injectCSPHeader($response, true);
+        return $this->builder->injectCSPHeader($response, $this->legacy);
     }
 
     /**

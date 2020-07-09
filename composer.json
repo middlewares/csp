@@ -24,10 +24,10 @@
     "require-dev": {
         "middlewares/utils": "^3.0",
         "phpunit/phpunit": "^8.1",
-        "zendframework/zend-diactoros": "^2.2",
         "friendsofphp/php-cs-fixer": "^2.0",
         "squizlabs/php_codesniffer": "^3.0",
-        "oscarotero/php-cs-fixer-config": "^1.0"
+        "oscarotero/php-cs-fixer-config": "^1.0",
+        "laminas/laminas-diactoros": "^2.3"
     },
     "suggest": {
         "psr/log-implementation": "Can be used to log the CSP reporting"

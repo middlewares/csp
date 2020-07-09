@@ -38,6 +38,14 @@ Dispatcher::run([
 
 Set the CSP builder to the constructor. See [paragonie/csp-builder](https://github.com/paragonie/csp-builder) for more info. If it's not provided, create a generic one with restrictive directives.
 
+### legacy
+
+To generate legacy CSP headers for old browsers (`X-Content-Security-Policy` and `X-Webkit-CSP`). By default is `true` but you can disabled it:
+
+```php
+$middleware = (new Middlewares\Csp($csp))->legacy(false);
+```
+
 ## Helpers
 
 ### createFromFile

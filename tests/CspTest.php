@@ -43,4 +43,17 @@ class CspTest extends TestCase
         $this->assertEquals($expected, $response->getHeaderLine('X-Content-Security-Policy'));
         $this->assertEquals($expected, $response->getHeaderLine('X-Webkit-CSP'));
     }
+
+    public function testLegacy()
+    {
+        $response = Dispatcher::run([
+            (new Csp())->legacy(false)
+        ]);
+
+        $expected = "frame-ancestors 'self'; object-src 'self'; script-src 'self'; ";
+
+        $this->assertEquals($expected, $response->getHeaderLine('Content-Security-Policy'));
+        $this->assertEmpty($response->getHeaderLine('X-Content-Security-Policy'));
+        $this->assertEmpty($response->getHeaderLine('X-Webkit-CSP'));
+    }
 }
