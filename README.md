@@ -83,5 +83,4 @@ The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
 [ico-downloads]: https://img.shields.io/packagist/dt/middlewares/csp.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/middlewares/csp
-[link-scrutinizer]: https://scrutinizer-ci.com/g/middlewares/csp
 [link-downloads]: https://packagist.org/packages/middlewares/csp
