@@ -2,8 +2,7 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE)
-[![Build Status][ico-travis]][link-travis]
-[![Quality Score][ico-scrutinizer]][link-scrutinizer]
+![Testing][ico-ga]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 Middleware to add the [Content-Security-Policy](https://content-security-policy.com/) header to the response using [paragonie/csp-builder](https://github.com/paragonie/csp-builder) library.
@@ -80,11 +79,9 @@ The MIT License (MIT). Please see [LICENSE](LICENSE) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/middlewares/csp.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/middlewares/csp/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/g/middlewares/csp.svg?style=flat-square
+[ico-ga]: https://github.com/middlewares/csp/workflows/testing/badge.svg
 [ico-downloads]: https://img.shields.io/packagist/dt/middlewares/csp.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/middlewares/csp
-[link-travis]: https://travis-ci.org/middlewares/csp
 [link-scrutinizer]: https://scrutinizer-ci.com/g/middlewares/csp
 [link-downloads]: https://packagist.org/packages/middlewares/csp

@@ -17,17 +17,18 @@
         "issues": "https://github.com/middlewares/csp/issues"
     },
     "require": {
-        "php": "^7.2",
+        "php": "^7.2 || ^8.0",
         "paragonie/csp-builder": "^2.4",
         "psr/http-server-middleware": "^1.0"
     },
     "require-dev": {
         "middlewares/utils": "^3.0",
-        "phpunit/phpunit": "^8.1",
+        "phpunit/phpunit": "^8|^9",
         "friendsofphp/php-cs-fixer": "^2.0",
         "squizlabs/php_codesniffer": "^3.0",
         "oscarotero/php-cs-fixer-config": "^1.0",
-        "laminas/laminas-diactoros": "^2.3"
+        "laminas/laminas-diactoros": "^2.3",
+        "phpstan/phpstan": "^0.12"
     },
     "suggest": {
         "psr/log-implementation": "Can be used to log the CSP reporting"
@@ -43,11 +44,11 @@
         }
     },
     "scripts": {
-        "test": [
-            "phpunit --coverage-text",
-            "phpcs"
-        ],
+        "cs": "phpcs",
         "cs-fix": "php-cs-fixer fix",
-        "coverage": "phpunit --coverage-html=coverage"
+        "phpstan": "phpstan analyse",
+        "test": "phpunit",
+        "coverage": "phpunit --coverage-text",
+        "coverage-html": "phpunit --coverage-html=coverage"
     }
 }
