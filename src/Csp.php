@@ -11,17 +11,22 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class Csp implements MiddlewareInterface
 {
-    /**
-     * @var CSPBuilder
-     */
+    /** @var CSPBuilder */
     private $builder;
+
+    /** @var bool */
     private $legacy = true;
 
     public static function createFromFile(string $path): self
     {
+        /* @note We use static so that other classes can extend it and get the expected behaviour */
         return new static(CSPBuilder::fromFile($path));
     }
 
+    /**
+     * @param  array<string,mixed> $data
+     * @return self
+     */
     public static function createFromData(array $data): self
     {
         return new static(new CSPBuilder($data));
@@ -30,7 +35,7 @@ class Csp implements MiddlewareInterface
     /**
      * Set CSPBuilder.
      */
-    public function __construct(CSPBuilder $builder = null)
+    public function __construct(?CSPBuilder $builder = null)
     {
         $this->builder = $builder ?: self::createBuilder();
     }
@@ -38,7 +43,7 @@ class Csp implements MiddlewareInterface
     /**
      * Set if include legacy headers for old browsers
      */
-    public function legacy($legacy = true): self
+    public function legacy(bool $legacy = true): self
     {
         $this->legacy = $legacy;
 
