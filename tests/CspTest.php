@@ -10,23 +10,26 @@ use Psr\Http\Message\ResponseInterface;
 
 class CspTest extends TestCase
 {
-    public function cspProvider()
+    /**
+     * @return array<array<Csp|string>>
+     */
+    public function cspProvider(): array
     {
         return [
             [
                 new Csp(),
-                "frame-ancestors 'self'; object-src 'self'; script-src 'self'; ",
+                "frame-ancestors 'self'; object-src 'self'; script-src 'self'",
             ],
             [
                 Csp::createFromData([
                     'default-src' => ['self' => true],
                     'report-uri' => '/csp_violation_reporting_endpoint',
                 ]),
-                "default-src 'self'; report-uri /csp_violation_reporting_endpoint; ",
+                "default-src 'self'; report-uri /csp_violation_reporting_endpoint",
             ],
             [
                 Csp::createFromFile(__DIR__.'/config.json'),
-                "default-src 'self'; report-uri /csp_violation_reporting_endpoint; ",
+                "default-src 'self'; report-uri /csp_violation_reporting_endpoint",
             ],
         ];
     }
@@ -34,7 +37,7 @@ class CspTest extends TestCase
     /**
      * @dataProvider cspProvider
      */
-    public function testCsp(Csp $csp, string $expected)
+    public function testCsp(Csp $csp, string $expected): void
     {
         $response = Dispatcher::run([$csp]);
 
@@ -44,13 +47,13 @@ class CspTest extends TestCase
         $this->assertEquals($expected, $response->getHeaderLine('X-Webkit-CSP'));
     }
 
-    public function testLegacy()
+    public function testLegacy(): void
     {
         $response = Dispatcher::run([
-            (new Csp())->legacy(false)
+            (new Csp())->legacy(false),
         ]);
 
-        $expected = "frame-ancestors 'self'; object-src 'self'; script-src 'self'; ";
+        $expected = "frame-ancestors 'self'; object-src 'self'; script-src 'self'";
 
         $this->assertEquals($expected, $response->getHeaderLine('Content-Security-Policy'));
         $this->assertEmpty($response->getHeaderLine('X-Content-Security-Policy'));
